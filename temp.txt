@@ -1,0 +1,12 @@
+se="https://mast.stsci.edu/vo-tap/api/v0.1/gaiadr3"
+$adql="SELECT source_id, ra, dec, phot_g_mean_mag, bp_rp FROM gaia_source WHERE phot_g_mean_mag <= 6"
+
+# 1) Create async job
+$resp = curl "$base/async" `
+  -i `
+  -X POST `
+  -H "Content-Type: application/x-www-form-urlencoded" `
+  -d "REQUEST=doQuery&LANG=ADQL&FORMAT=csv&QUERY=$adql"
+
+# In the response headers, look for a "Location:" header = the job URL
+

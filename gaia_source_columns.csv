@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Produced with MAST VOTable encoder version 1.0 -->
+<VOTABLE version="1.4" xmlns="http://www.ivoa.net/xml/VOTable/v1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ivoa.net/xml/VOTable/v1.3 http://www.ivoa.net/xml/VOTable/v1.3">
+<RESOURCE type="results">
+<INFO name="QUERY_STATUS" value="OK"/>
+<INFO name="QUERY" value="SELECT column_name, datatype, unit, description
+      FROM TAP_SCHEMA.columns
+      WHERE table_name = 'gaia_source'
+      ORDER BY column_name"/>
+<TABLE>
+<FIELD name="column_name" datatype="char" arraysize="*">
+<DESCRIPTION>Column name</DESCRIPTION></FIELD>
+<FIELD name="datatype" datatype="char" arraysize="*">
+<DESCRIPTION>ADQL datatype</DESCRIPTION></FIELD>
+<FIELD name="unit" datatype="char" arraysize="*">
+<DESCRIPTION>Unit in VO standard format</DESCRIPTION></FIELD>
+<FIELD name="description" datatype="char" arraysize="*">
+<DESCRIPTION>Brief description of column</DESCRIPTION></FIELD>
+<DATA>
+<TABLEDATA>
+</TABLEDATA>
+</DATA>
+</TABLE>
+</RESOURCE>
+</VOTABLE>
