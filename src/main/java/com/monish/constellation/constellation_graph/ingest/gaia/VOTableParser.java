@@ -19,7 +19,7 @@ public class VOTableParser {
             List<StarRow> rows = new ArrayList<>();
 
             List<String> currentRow = null;
-            boolean inTD = false;
+            StringBuilder tdBuffer = null;
 
             while(reader.hasNext()) {
                 int event = reader.next();
@@ -41,20 +41,19 @@ public class VOTableParser {
                     }
                     
                     if(inTableData && "TD".equals(name)){
-                        inTD = true;
+                        tdBuffer = new StringBuilder();
                     }
                 }
-                if(event == XMLStreamConstants.CHARACTERS && inTableData && inTD){
-                    String text = reader.getText().trim();
-                    if(currentRow != null && !text.isEmpty()){
-                        currentRow.add(text);
-                    }
+                if(event == XMLStreamConstants.CHARACTERS && inTableData && tdBuffer != null){
+                    tdBuffer.append(reader.getText());
                 }
                 if(event == XMLStreamConstants.END_ELEMENT){
                     String name = reader.getLocalName();
 
-                    if("TD".equals(name)){
-                        inTD = false;
+                    if(inTableData &&"TD".equals(name)){
+                        String cell = (tdBuffer ==null)? "": tdBuffer.toString().trim();
+                        if(currentRow != null) currentRow.add(cell);
+                        tdBuffer = null;
                     }
 
                     if(inTableData && "TR".equals(name)) {
@@ -63,6 +62,10 @@ public class VOTableParser {
                             if(row !=null) rows.add(row);
                         }
                         currentRow = null;
+                    }
+
+                    if("TABLEDATA".equals(name)){
+                        inTableData = false;
                     }
                 }
     }
@@ -78,12 +81,16 @@ private StarRow mapRow(List<String> fields, List<String> values){
         String v = values.get(i);
 
         if(v==null || v.isBlank()) continue;
-        switch(f){
-            case "source_id" -> sourceId = Long.parseLong(v);
-            case "ra" -> ra = Double.parseDouble(v);
-            case "dec" -> dec = Double.parseDouble(v);
-            case "phot_g_mean_mag" -> gmag = Double.parseDouble(v);
-            default -> {}
+        try{
+            switch(f){
+                case "source_id": sourceId = Long.parseLong(v); break;
+                case "ra": ra = Double.parseDouble(v); break;
+                case "dec": dec = Double.parseDouble(v); break;
+                case "phot_g_mean_mag": gmag = Double.parseDouble(v); break;
+                default: break;
+            }
+        } catch(NumberFormatException e){
+            return null;
         }
     }
     if(sourceId == null || ra == null || dec == null || gmag == null){
