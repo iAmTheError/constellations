@@ -2,13 +2,10 @@ package com.monish.constellation.constellation_graph.ingest.gaia;
 
 import com.monish.constellation.constellation_graph.repository.StarRepository;
 import com.monish.constellation.constellation_graph.domain.node.Star;
-import com.monish.constellation.constellation_graph.ingest.gaia.GaiaTapClient;
-import com.monish.constellation.constellation_graph.ingest.gaia.VOTableParser;
 import com.monish.constellation.constellation_graph.ingest.model.StarRow;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.xml.stream.XMLStreamException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +13,11 @@ import java.util.List;
 @Service
 public class GaiaIngestService {
     private final GaiaTapClient client;
-    private final VOTableParser parser;
+    private final VOTableParser parser = new VOTableParser();
     private final StarRepository starRepository;
 
-    public GaiaIngestService(GaiaTapClient client,VOTableParser parser, StarRepository starRepository){
+    public GaiaIngestService(GaiaTapClient client, StarRepository starRepository){
         this.client = client;
-        this.parser = new VOTableParser();
         this.starRepository = starRepository;
     }
 
