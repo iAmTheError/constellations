@@ -41,5 +41,6 @@ public class GaiaTapClient{
                         .body(body)
                         .retrieve()
                         .body(InputStream.class);
+                return responseStream;
     }
 }
