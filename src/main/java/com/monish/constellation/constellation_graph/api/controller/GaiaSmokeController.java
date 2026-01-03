@@ -6,7 +6,6 @@ import com.monish.constellation.constellation_graph.ingest.model.StarRow;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.management.RuntimeMBeanException;
 import javax.xml.stream.XMLStreamException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -21,10 +20,10 @@ public class GaiaSmokeController {
         this.client = client;
     }
 
-    @GetMapping("/api/gaia-smoke-test")
+    @GetMapping("/admin/gaia-smoke")
     public List<StarRow> smoke() throws XMLStreamException{
         try{
-            InputStream in = client.queryBrightStarsVOTable(2.0,10);
+            InputStream in = client.queryBrightStarsVOTable(3.0,10);
             List<StarRow> stars = new ArrayList<>();
             for(StarRow row : parser.parse(in)){
                 stars.add(row);

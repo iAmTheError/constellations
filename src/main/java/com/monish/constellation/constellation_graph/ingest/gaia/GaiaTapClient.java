@@ -3,10 +3,11 @@ package com.monish.constellation.constellation_graph.ingest.gaia;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.io.InputStream;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import java.io.ByteArrayInputStream;
 
 @Component
 public class GaiaTapClient{
@@ -19,28 +20,32 @@ public class GaiaTapClient{
     }
     public InputStream queryBrightStarsVOTable(double maxGmag, int limit){
                 String adql = """
-                SELECT source_id, ra, dec, phot_g_mean_mag
+                SELECT TOP %s source_id, ra, dec, phot_g_mean_mag
                 FROM gaia_source
                 WHERE phot_g_mean_mag <= %s
                 ORDER BY phot_g_mean_mag ASC
-                """.formatted(maxGmag);
+                """.formatted(limit, maxGmag);
 
-                if(limit>0){
-                    adql.replaceFirst("SELECT","SELECT TOP "+limit);
-                }
+                //did not work
+                //if(limit>0){
+                  //  adql.replaceFirst("SELECT","SELECT TOP "+limit);
+                //}
 
-                String body = "REQUEST=doQuery"+
-                        "&LANG=ADQL"+
-                        "&FORMAT=votable"+
-                        "&QUERY="+ URLEncoder.encode(adql, StandardCharsets.UTF_8);
+                MultiValueMap<String,String> body = new LinkedMultiValueMap<>();
+                body.add("REQUEST", "doQuery");
+                body.add("LANG", "ADQL");
+                body.add("FORMAT", "votable");
+                body.add("QUERY", adql);
 
-                InputStream responseStream = restClient.post()
-                        .uri(GAIA_TAP_URL)
-                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .accept(MediaType.APPLICATION_XML)
-                        .body(body)
-                        .retrieve()
-                        .body(InputStream.class);
-                return responseStream;
+                byte[] bytes =restClient.post()
+                .uri(GAIA_TAP_URL)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .accept(MediaType.APPLICATION_XML, MediaType.TEXT_XML)
+                .body(body)
+                .retrieve()
+                .body(byte[].class);
+
+        return new ByteArrayInputStream(bytes);
     }
 }
+            
