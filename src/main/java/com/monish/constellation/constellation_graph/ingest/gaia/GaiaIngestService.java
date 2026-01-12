@@ -11,13 +11,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class GaiaIngestService {
+/*public class GaiaIngestService {
     private final GaiaTapClient client;
     private final VOTableParser parser = new VOTableParser();
     private final StarRepository starRepository;
 
     public GaiaIngestService(GaiaTapClient client, StarRepository starRepository){
         this.client = client;
+        this.starRepository = starRepository;
+    }*/
+   //this was the original code but did not allow mocking of parser in tests
+public class GaiaIngestService {
+    private final GaiaTapClient client;
+    private final VOTableParser parser;
+    private final StarRepository starRepository;
+
+    // ✅ Spring will use this (only needs beans it already has)
+    public GaiaIngestService(GaiaTapClient client, StarRepository starRepository) {
+        this(client, new VOTableParser(), starRepository);
+    }
+
+    // ✅ Extra constructor for unit tests (package-private is perfect)
+    GaiaIngestService(GaiaTapClient client, VOTableParser parser, StarRepository starRepository) {
+        this.client = client;
+        this.parser = parser;
         this.starRepository = starRepository;
     }
 
