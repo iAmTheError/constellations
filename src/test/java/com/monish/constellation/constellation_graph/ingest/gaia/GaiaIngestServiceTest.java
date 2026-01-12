@@ -35,7 +35,9 @@ public class GaiaIngestServiceTest {
         assertEquals(2505,result.parsed());
         assertEquals(2505,result.saved());
 
-        
+        @SuppressWarnings("unchecked")
+        ArgumentCaptor<Iterable<Star>> batch = (ArgumentCaptor<Iterable<Star>>) (ArgumentCaptor<?>) ArgumentCaptor.forClass(Iterable.class);
+        verify(starRepository,times(3)).saveAll(batch.capture());
 
     }
 }
