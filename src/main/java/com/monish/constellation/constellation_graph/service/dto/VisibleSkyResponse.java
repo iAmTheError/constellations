@@ -10,7 +10,7 @@ public record VisibleSkyResponse(
     double minAltDeg,
     Instant timeUtc,
     boolean isNight,
-    double limitingMagnitude,
+    double limitingMag,
     List<VisibleStar> stars
 )
 {
