@@ -12,6 +12,15 @@ public record VisibleSkyResponse(
     boolean isNight,
     double limitingMagnitude,
     List<VisibleStar> stars
-) {}
-
-publ
+)
+{
+    public record VisibleStar(
+        long sourceId,
+        double raDeg,
+        double decDeg,
+        double gmag,
+        double altDeg,
+        double azdeg,
+        double effectiveMag
+    ){}
+}
