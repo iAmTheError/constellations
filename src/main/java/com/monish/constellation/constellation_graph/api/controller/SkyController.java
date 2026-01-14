@@ -16,7 +16,7 @@ public class SkyController {
         this.skyVisibilityService = skyVisibilityService;
     }
 
-    @GetMapping("sky/visible")
+    @GetMapping("api/sky/visible")
     public VisibleSkyResponse visible(
         @RequestParam double lat,
         @RequestParam double lon,
@@ -28,7 +28,7 @@ public class SkyController {
             throw new IllegalArgumentException("lat must be between -90 and 90");
         }
         if(lon < -180 || lon > 180){
-            throw new IllegalArgumentException("lon must be between -180 and 180");
+            throw new IllegalArgumentException("lon must be within -180 and 180");
         }
         if(bortle < 1 || bortle > 9){
             throw new IllegalArgumentException("bortle must be between 1 and 9");
