@@ -10,7 +10,7 @@ import java.util.List;
 public class SkyVisibilityService {
     public VisibleSkyResponse visible(double lat, double lon, int bortle, double minAltDeg, Instant timeUtc){
         boolean isNight = true;
-        double limitingMag = 6.0;
+        double limitingMag = BortleScale.limitingMagnitude(bortle) + BortleScale.candidateMargin();
 
         return new VisibleSkyResponse(
             lat,
