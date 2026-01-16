@@ -18,9 +18,9 @@ public record VisibleSkyResponse(
         long sourceId,
         double raDeg,
         double decDeg,
-        double gmag,
+        double gMag,
         double altDeg,
-        double azdeg,
+        double azDeg,
         double effectiveMag
     ){}
 }
