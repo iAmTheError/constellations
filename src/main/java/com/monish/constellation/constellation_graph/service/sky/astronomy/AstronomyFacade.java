@@ -7,6 +7,9 @@ import java.time.Instant;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class AstronomyFacade {
 
     public record Horizontal(double azDeg, double altDeg) {}
