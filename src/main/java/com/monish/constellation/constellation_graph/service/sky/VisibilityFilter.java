@@ -30,8 +30,8 @@ public class VisibilityFilter {
         double extinction = EXTINCTION_COEFFICIENT * (airmass - 1.0);
         double effectiveMag = gMag + extinction;
 
-        boolean Visible = effectiveMag <= limitingMag;
+        boolean visible = effectiveMag <= limitingMag;
 
-        return new VisibilityResult(Visible, effectiveMag);
+        return new VisibilityResult(visible, effectiveMag);
     }
 }
