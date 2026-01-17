@@ -2,6 +2,9 @@ package com.monish.constellation.constellation_graph.service.sky.astronomy;
 
 import java.time.Instant;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class TwilightService {
     private final AstronomyFacade astronomy;
 

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-/*public class GaiaIngestService {
+public class GaiaIngestService {
     private final GaiaTapClient client;
     private final VOTableParser parser = new VOTableParser();
     private final StarRepository starRepository;
@@ -19,10 +19,11 @@ import java.util.List;
     public GaiaIngestService(GaiaTapClient client, StarRepository starRepository){
         this.client = client;
         this.starRepository = starRepository;
-    }*/
+    }
    //this upper code  this works in production but not in tests, this is the original code but did not allow mocking of parser in tests,
 
 //used the lower code for testing as it allowed mocking of parser, but fails while building application as Spring cannot find a suitable constructor
+/* 
 public class GaiaIngestService {
     private final GaiaTapClient client;
     private final VOTableParser parser;
@@ -39,6 +40,7 @@ public class GaiaIngestService {
         this.parser = parser;
         this.starRepository = starRepository;
     }
+        */
         
 
     public record IngestResult(int parsed, int saved){}

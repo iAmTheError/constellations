@@ -8,7 +8,13 @@ import org.springframework.data.neo4j.repository.query.Query;
 
 
 public interface StarRepository extends Neo4jRepository<Star, Long> {
-    @Query("MATCH (s:Star) WHERE S.gMag < = $maxGmag RETURN s ORDER BY s.gMag ASC LIMIT $limit")
+    @Query("""
+    MATCH (s:Star)
+    WHERE s.gmag <= $maxGmag
+    RETURN s
+    ORDER BY s.gmag ASC
+    LIMIT $limit
+    """)
     List<Star> findCandidateStars(double maxGmag, int limit);
 }
 
