@@ -13,7 +13,7 @@ public class IngestController {
     }
 
     @PostMapping("/ingest/bright-stars")
-    public GaiaIngestService.IngestResult ingestBrightStars(@RequestParam(defaultValue = "6.0") double maxGmag, @RequestParam(defaultValue = "1000") int limit) throws Exception {
+    public GaiaIngestService.IngestResult ingestBrightStars(@RequestParam(defaultValue = "6.0") double maxGmag, @RequestParam(defaultValue = "2000") int limit) throws Exception {
         var result = gaiaIngestService.ingestBrightestStars(maxGmag, limit);
         return result;
     }
