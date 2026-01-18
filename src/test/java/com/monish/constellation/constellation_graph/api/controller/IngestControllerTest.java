@@ -23,7 +23,7 @@ public class IngestControllerTest {
 
     @Test
     void ingestEndpointReturnsJson() throws Exception{
-        when(ingestService.ingestBrightestStars(6.0,100)).thenReturn(new GaiaIngestService.IngestResult(150,150));
+        when(ingestService.ingestBrightestStars(6.0,2000)).thenReturn(new GaiaIngestService.IngestResult(150,150));
     mvc.perform(post("/admin/ingest/bright-stars"))
         .andExpect(status().isOk())
         .andExpect(content().contentType("application/json"))

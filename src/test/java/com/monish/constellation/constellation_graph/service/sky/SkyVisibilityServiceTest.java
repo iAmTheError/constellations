@@ -3,6 +3,7 @@ package com.monish.constellation.constellation_graph.service.sky;
 import com.monish.constellation.constellation_graph.domain.node.*;
 import com.monish.constellation.constellation_graph.repository.StarRepository;
 import com.monish.constellation.constellation_graph.service.sky.astronomy.TwilightService;
+import com.monish.constellation.constellation_graph.service.sky.astronomy.AstronomyFacade;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyDouble;
@@ -21,12 +22,17 @@ public class SkyVisibilityServiceTest {
         TwilightService twilight = mock(TwilightService.class);
         StarRepository repo = mock(StarRepository.class);
         HorizontalCoordsService horizontal = mock(HorizontalCoordsService.class);
-        VisibilityFilter filter = mock(VisibilityFilter.class);
-        
+        VisibilityFilter filter = new VisibilityFilter();
+        AstronomyFacade.Horizontal h =
+        new AstronomyFacade.Horizontal(180.0, 45.0);
+
         Star star = new Star(1L, 101.287, -16.716, 2.0);
         when(repo.findCandidateStars(anyDouble(),anyInt())).thenReturn(List.of(star));
 
         when(twilight.isDarkEnough(anyDouble(),anyDouble(),any())).thenReturn(true);
+
+        when(horizontal.Horizontal(anyDouble(),anyDouble(),anyDouble(),anyDouble(),any())).
+        thenReturn(h);
 
         SkyVisibilityService svc = new SkyVisibilityService(twilight, repo, horizontal, filter);
         

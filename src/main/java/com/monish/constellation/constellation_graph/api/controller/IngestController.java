@@ -12,7 +12,7 @@ public class IngestController {
         this.gaiaIngestService = gaiaIngestService;
     }
 
-    @PostMapping("/ingest/bright-stars")
+    @PostMapping(value="/ingest/bright-stars", produces = "application/json")
     public GaiaIngestService.IngestResult ingestBrightStars(@RequestParam(defaultValue = "6.0") double maxGmag, @RequestParam(defaultValue = "2000") int limit) throws Exception {
         var result = gaiaIngestService.ingestBrightestStars(maxGmag, limit);
         return result;
