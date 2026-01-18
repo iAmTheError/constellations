@@ -11,7 +11,7 @@ public class HorizontalCoordsService {
         this.astronomyFacade = astronomyFacade;
     }
 
-    public AstronomyFacade.Horizontal tHorizontal(
+    public AstronomyFacade.Horizontal Horizontal(
         double raDeg,
         double decDeg,
         double latDeg,

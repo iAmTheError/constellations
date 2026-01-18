@@ -53,7 +53,7 @@ public class SkyVisibilityService {
         List<VisibleStar> visibleStars = new ArrayList<>();
 
         for(Star star : candidates){
-            var horizontal = horizontalCoordsService.tHorizontal(
+            var horizontal = horizontalCoordsService.Horizontal(
                 star.getRa(),
                 star.getDec(),
                 lat,
